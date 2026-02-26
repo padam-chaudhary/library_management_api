@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\StoreAuthorRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Models\Author;
 class AuthorController extends Controller
 {
@@ -22,9 +23,13 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAuthorRequest $request): JsonResponse
     {
-        //
+        $authors = Author::create($request->validated());// attributes
+
+        return response()->json([
+            'authors' =>$authors,
+        ]);
     }
 
     /**
